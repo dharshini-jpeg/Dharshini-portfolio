@@ -286,36 +286,6 @@ h2 {
                0 0 20px rgba(255,255,255,0.3);
 }
 
-@keyframes lightning {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@media (max-width: 768px) {
-  .section {
-    position: static !important;      /* normal flow */
-    opacity: 1 !important;            /* visible */
-    visibility: visible !important;   /* visible */
-    min-height: auto;
-    padding: 20px 15px;
-    display: block;
-    text-align: left;
-  }
-
-  .about-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .hero-title {
-    font-size: 2rem;
-  }
-
-  .hero-ctas {
-    flex-direction: column;
-  }
-}
 
 
 .greeting-text {
@@ -396,3 +366,116 @@ h2 {
 .download-icon {
   stroke: #fff;
 }  
+
+
+.nav-toggle {
+  display: none; /* Hidden on desktop */
+  padding: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001; /* Above mobile nav panel */
+}
+
+.hamburger {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 3px;
+  background: var(--text);
+  border-radius: 3px;
+  transition: transform 0.3s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--text);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.hamburger::before { top: -8px; }
+.hamburger::after { bottom: -8px; }
+
+
+@media (max-width: 768px) {
+  /* --- Show Hamburger Button --- */
+  .nav-toggle {
+    display: block;
+  }
+
+  /* --- Hide desktop nav, style mobile panel --- */
+  .nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(75vw, 300px); /* 75% of viewport width, but max 300px */
+    height: 100vh;
+    background: var(--card-bg);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+  }
+
+  /* --- Show Nav When Active --- */
+  .nav.active {
+    transform: translateX(0);
+  }
+
+  .nav-link {
+    font-size: 1.2rem;
+  }
+  
+  /* --- Animate Hamburger to "X" --- */
+  .nav-toggle.active .hamburger {
+    transform: rotate(135deg);
+    background: var(--accent);
+  }
+  .nav-toggle.active .hamburger::before {
+    top: 0;
+    transform: rotate(90deg);
+    background: var(--accent);
+  }
+  .nav-toggle.active .hamburger::after {
+    bottom: 0;
+    opacity: 0; /* Hide bottom bar */
+  }
+
+  /* --- Change SPA to Scrolling Page --- */
+  .section {
+    position: static !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    min-height: auto;
+    padding: 60px 0; /* More vertical space */
+    display: block; /* Let content flow naturally */
+  }
+
+  /* --- Adjustments for Mobile Layout --- */
+  .logo { font-size: 1.2rem; }
+  .header-inner { padding: 0 15px; }
+
+  .resume-btn-container { display: none; } /* Hide sticky button, can be placed elsewhere */
+
+  h2 { font-size: 1.8rem; }
+  .hero-title { font-size: 2.2rem; }
+  .lightning-text { font-size: 2.4rem; }
+  .hero-ctas { flex-direction: column; gap: 10px; }
+  
+  .about-grid {
+    grid-template-columns: 1fr; /* Stack vertically */
+    gap: 30px;
+    text-align: center;
+  }
+  .about-points { text-align: left; }
+  .circle-wrapper { width: 180px; height: 180px; }
+}
